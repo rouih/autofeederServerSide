@@ -34,6 +34,16 @@ app.get('/login', (req,res) => {
   })
 })
 
+app.post('/signup', (res, req) => {
+  const newUser = new Usere(req.body)
+  newUser.save((error) => {
+    if(error)
+      return res.status(500).send('error while saving to DB')
+
+    return res.end('done')
+  })
+})
+
 
 // Routes
 app.use('/', routes);
