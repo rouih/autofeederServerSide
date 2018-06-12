@@ -4,7 +4,7 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import routes from './routes';
 import mongoose from 'mongoose'
-import Usere from './User'
+import User from './User'
 
 const app = express();
 app.disable('x-powered-by');
@@ -26,7 +26,7 @@ app.get('/login', (req,res) => {
 
   console.log(username,password)
 
-  Usere.findOne({name:username,password:password}, (err, docs) => {
+  User.findOne({name:username,password:password}, (err, docs) => {
     if ((err)||(docs===null))
       return res.send(401, { error: err });
     console.log(docs);
@@ -35,7 +35,7 @@ app.get('/login', (req,res) => {
 })
 
 app.post('/signup', (res, req) => {
-  const newUser = new Usere(req.body)
+  const newUser = new User(req.body)
   newUser.save((error) => {
     if(error)
       return res.status(500).send('error while saving to DB')
