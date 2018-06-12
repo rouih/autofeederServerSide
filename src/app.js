@@ -20,7 +20,7 @@ app.use(logger('dev', {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '../public')));
-app.get('/login', (req,res) => {
+app.get('/login', (req, res) => {
   const username = req.query['username'];
   const password = req.query['password'];
 
@@ -34,13 +34,13 @@ app.get('/login', (req,res) => {
   })
 })
 
-app.post('/signup', (res, req) => {
+app.post('/signup', (req, res) => {
   const newUser = new User(req.body)
   newUser.save((error) => {
     if(error)
       return res.status(500).send('error while saving to DB')
 
-    return res.end('done')
+    res.send('ok')
   })
 })
 
