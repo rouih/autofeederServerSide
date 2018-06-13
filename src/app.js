@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import routes from './routes';
 import mongoose from 'mongoose'
 import User from './User'
+import FTIME from './FeedingTime'
 
 const app = express();
 app.disable('x-powered-by');
@@ -21,16 +22,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '../public')));
 app.get('/login', (req, res) => {
-  const username = req.query['username'];
+  const mail = req.query['email'];
   const password = req.query['password'];
 
-  console.log(username,password)
+  console.log(mail,password)
 
-  User.findOne({name:username,password:password}, (err, docs) => {
+  User.findOne({email:mail,password:password}, (err, docs) => {
     if ((err)||(docs===null))
       return res.send(401, { error: err });
     console.log(docs);
-    return res.send(username);
+    return res.send(mail);
   })
 })
 
@@ -40,7 +41,17 @@ app.post('/signup', (req, res) => {
     if(error)
       return res.status(500).send('error while saving to DB')
 
-    res.send('ok')
+    res.send('Registered Successfully')
+  })
+})
+
+app.post('/feedingtime', (req, res) => {
+  const newFeedingTime = new User(req.body)
+  newFeedingTime.save((error) => {
+    if(error)
+      return res.status(500).send('error while saving to DB')
+
+    res.send('Registered Successfully')
   })
 })
 
