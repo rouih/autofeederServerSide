@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import routes from './routes';
 import mongoose from 'mongoose'
 import User from './User'
-import FTIME from './FeedingTime'
 
 const app = express();
 app.disable('x-powered-by');
@@ -45,15 +44,7 @@ app.post('/signup', (req, res) => {
   })
 })
 
-app.post('/feedingtime', (req, res) => {
-  const newFeedingTime = new User(req.body)
-  newFeedingTime.save((error) => {
-    if(error)
-      return res.status(500).send('error while saving to DB')
 
-    res.send('Registered Successfully')
-  })
-})
 
 
 // Routes
