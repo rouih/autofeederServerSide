@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import routes from './routes';
 import mongoose from 'mongoose'
 import User from './User'
-
+import Animal from './Animal'
 const app = express();
 app.disable('x-powered-by');
 
@@ -43,6 +43,28 @@ app.post('/signup', (req, res) => {
     res.send('Registered Successfully')
   })
 })
+
+
+app.post('/signupAnimal', (req, res) => {
+  const  newAnimal = new Animal(req.body)
+  newAnimal.save((error) => {
+    if(error)
+      return res.status(500).send('error while saving to DB')
+
+    res.send('Registered Successfully')
+  })
+})
+
+app.post('/signupAnimal', (req, res) => {
+  const newUser = new User(req.body)
+  newUser.save((error) => {
+    if(error)
+      return res.status(500).send('error while saving to DB')
+
+    res.send('Registered Successfully')
+  })
+})
+
 
 
 
